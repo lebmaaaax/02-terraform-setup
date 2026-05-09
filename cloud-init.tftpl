@@ -1,0 +1,48 @@
+#cloud-config
+hostname: ${hostname}
+fqdn: ${hostname}.local
+manage_etc_hosts: true
+preserve_hostname: false
+timezone: Europe/Moscow
+
+users:
+  - default
+  - name: ${ssh_user}
+    gecos: Terraform user
+    shell: /bin/bash
+    groups:
+      - sudo
+      - adm
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    lock_passwd: true
+
+disable_root: true
+ssh_pwauth: false
+
+write_files:
+  - path: /etc/motd
+    permissions: "0644"
+    content: |
+      Managed by Terraform + cloud-init
+      Hostname: ${hostname}
+  - path: /usr/local/bin/bootstrap-check
+    permissions: "0755"
+    content: |
+      #!/usr/bin/env bash
+      set -euo pipefail
+      echo "cloud-init status:"
+      cloud-init status --long || true
+      echo
+      echo "hostname:"
+      hostnamectl --static || hostname
+      echo
+      echo "bootstrap marker:"
+      ls -la /opt/bootstrap/cloud-init.done
+
+runcmd:
+  - hostnamectl set-hostname ${hostname}
+  - mkdir -p /opt/bootstrap
+  - chown ${ssh_user}:${ssh_user} /opt/bootstrap
+  - touch /opt/bootstrap/cloud-init.done
+
+final_message: "cloud-init finished for ${hostname}"

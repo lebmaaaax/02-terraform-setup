@@ -1,0 +1,16 @@
+cloud_id            = "your-cloud-id"
+folder_id           = "your-folder-id"
+zone                = "ru-central1-a"
+subnet_id           = "your-existing-subnet-id"
+image_id            = "your-image-id"
+ssh_public_key_path = "~/.ssh/id_ed25519.pub"
+
+vm_1_name      = "app"
+vm_1_cores     = 2
+vm_1_memory    = 2
+vm_1_disk_size = 20
+
+vm_2_name      = "db"
+vm_2_cores     = 4
+vm_2_memory    = 4
+vm_2_disk_size = 20
