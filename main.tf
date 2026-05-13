@@ -5,7 +5,8 @@ provider "yandex" {
 }
 
 locals {
-  ssh_key = "${var.ssh_user}:${file(var.ssh_public_key_path)}"
+  ssh_public_key = trimspace(file(var.ssh_public_key_path))
+  ssh_key        = "${var.ssh_user}:${local.ssh_public_key}"
 }
 
 resource "yandex_compute_instance" "vm_1" {
@@ -33,8 +34,9 @@ resource "yandex_compute_instance" "vm_1" {
   metadata = {
     ssh-keys  = local.ssh_key
     user-data = templatefile("${path.module}/cloud-init.tftpl", {
-      hostname = var.vm_1_name
-      ssh_user = var.ssh_user
+      hostname       = var.vm_1_name
+      ssh_user       = var.ssh_user
+      ssh_public_key = local.ssh_public_key
     })
   }
 }
@@ -64,8 +66,9 @@ resource "yandex_compute_instance" "vm_2" {
   metadata = {
     ssh-keys  = local.ssh_key
     user-data = templatefile("${path.module}/cloud-init.tftpl", {
-      hostname = var.vm_2_name
-      ssh_user = var.ssh_user
+      hostname       = var.vm_2_name
+      ssh_user       = var.ssh_user
+      ssh_public_key = local.ssh_public_key
     })
   }
 }
