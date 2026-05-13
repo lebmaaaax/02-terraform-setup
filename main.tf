@@ -32,7 +32,7 @@ resource "yandex_compute_instance" "vm_1" {
   }
 
   metadata = {
-    ssh-keys  = local.ssh_key
+    ssh-keys = local.ssh_key
     user-data = templatefile("${path.module}/cloud-init.tftpl", {
       hostname       = var.vm_1_name
       ssh_user       = var.ssh_user
@@ -64,7 +64,7 @@ resource "yandex_compute_instance" "vm_2" {
   }
 
   metadata = {
-    ssh-keys  = local.ssh_key
+    ssh-keys = local.ssh_key
     user-data = templatefile("${path.module}/cloud-init.tftpl", {
       hostname       = var.vm_2_name
       ssh_user       = var.ssh_user

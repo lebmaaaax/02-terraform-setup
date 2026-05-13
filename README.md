@@ -105,6 +105,8 @@ After the instances are created, cloud-init will:
 - set the VM hostname
 - create `/opt/bootstrap/cloud-init.done`
 
+Use `ubuntu` as the default SSH user for this image unless you intentionally override `ssh_user`.
+
 The custom image built by Packer already contains the shared OS baseline:
 
 - system updates
@@ -122,6 +124,8 @@ You can verify bootstrap after SSH login:
 - создание пользователя из `ssh_user` с `passwordless sudo`
 - установку hostname VM
 - создание файла-маркера `/opt/bootstrap/cloud-init.done`
+
+Для этого образа используй `ubuntu` как SSH-пользователя по умолчанию, если специально не переопределяешь `ssh_user`.
 
 Custom image, собранный через Packer, уже содержит общий OS baseline:
 

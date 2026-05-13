@@ -33,7 +33,7 @@ variable "platform_id" {
 variable "ssh_user" {
   description = "SSH user into VM."
   type        = string
-  default     = "admin"
+  default     = "ubuntu"
 }
 
 variable "ssh_public_key_path" {
@@ -94,4 +94,4 @@ variable "vm_2_disk_size" {
   description = "Boot disk size for 2 VM."
   type        = number
   default     = 20
-} 
+}

@@ -3,6 +3,7 @@ folder_id           = "your-folder-id"
 zone                = "ru-central1-a"
 subnet_id           = "your-existing-subnet-id"
 image_id            = "your-image-id"
+ssh_user            = "ubuntu"
 ssh_public_key_path = "~/.ssh/id_ed25519.pub"
 
 vm_1_name      = "app"
